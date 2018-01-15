@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context="com.codeapin.newsapp.ui.main.MainActivity">
 
+    <!-- TODO: (4) Buat layout untuk MainActivity -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_news"
         android:layout_width="match_parent"

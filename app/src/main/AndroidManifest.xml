@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codeapin.newsapp">
 
+    <!-- TODO: (27) Buat akses permission untuk menggunakan internet -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application

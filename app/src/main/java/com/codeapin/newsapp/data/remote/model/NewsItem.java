@@ -1,6 +1,6 @@
 package com.codeapin.newsapp.data.remote.model;
 
-
+// TODO: (5) Buat class news item untuk digunakan sebagai dataset pada RecyclerView
 public class NewsItem {
 
     private String urlCover;
