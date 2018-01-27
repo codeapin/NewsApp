@@ -1,5 +1,7 @@
 package com.codeapin.newsapp.data.remote.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class NewsItem {
 
     private String urlCover;

@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codeapin.newsapp.R;
-import com.codeapin.newsapp.data.remote.model.NewsItem;
+import com.codeapin.newsapp.data.remote.model.ArticlesItem;
+import com.codeapin.newsapp.data.remote.model.ArticlesItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    private List<NewsItem> dataSet = new ArrayList<>();
+    private List<ArticlesItem> dataSet = new ArrayList<>();
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,13 +35,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        NewsItem newsItem = dataSet.get(position);
+        ArticlesItem newsItem = dataSet.get(position);
 
         holder.tvTitle.setText(newsItem.getTitle());
         holder.tvAuthor.setText(newsItem.getAuthor());
         holder.tvDescription.setText(newsItem.getDescription());
         Glide.with(holder.itemView.getContext())
-                .load(newsItem.getUrlCover())
+                .load(newsItem.getUrlToImage())
                 .into(holder.ivCover);
     }
 
@@ -49,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         return dataSet.size();
     }
 
-    public void setData(List<NewsItem> newsItemList){
+    public void setData(List<ArticlesItem> newsItemList){
         this.dataSet = newsItemList;
         notifyDataSetChanged();
     }

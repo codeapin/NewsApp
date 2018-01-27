@@ -4,39 +4,68 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.codeapin.newsapp.R;
+import com.codeapin.newsapp.data.remote.model.ApiResponse;
 import com.codeapin.newsapp.data.remote.model.NewsItem;
+import com.codeapin.newsapp.data.remote.service.NewsApiClient;
+import com.codeapin.newsapp.data.remote.service.NewsApiService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName(); //MainActivity
 
     @BindView(R.id.rv_news)
     RecyclerView rvNews;
 
     private NewsAdapter adapter;
+    private Call<ApiResponse> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupView();
+        setupList();
+    }
 
-        ButterKnife.bind(this);
-
+    private void setupList() {
         adapter = new NewsAdapter();
-        adapter.setData(getDummyData());
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
 
         rvNews.setLayoutManager(linearLayoutManager);
         rvNews.setAdapter(adapter);
+
+        call = NewsApiClient.getNewsApiService()
+                .getTopHeadlinesNews("us", "cd3f89ea78aa441d9aafb6f82a313245");
+        call.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                adapter.setData(response.body().getArticles());
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void setupView() {
+        ButterKnife.bind(this);
+
     }
 
     public List<NewsItem> getDummyData(){
