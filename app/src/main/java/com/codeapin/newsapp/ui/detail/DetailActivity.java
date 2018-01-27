@@ -15,10 +15,8 @@ import com.codeapin.newsapp.data.remote.model.ArticlesItem;
 
 public class DetailActivity extends AppCompatActivity {
 
-    //TODO (28) Buat konstan untuk EXTRA_ARTICLE_ITEM
     public static final String EXTRA_ARTICLE_ITEM = "ARTICLE_ITEM";
 
-    // TODO: (29) Buat method untuk menjalankan activity dengan parameter context dan ArticlesItem dan taruh articles item di dalam intent
     public static void start(Context context, ArticlesItem articlesItem) {
         Intent starter = new Intent(context, DetailActivity.class);
         starter.putExtra(EXTRA_ARTICLE_ITEM, articlesItem);
@@ -32,10 +30,8 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //TODO (31) Ambil articles item dari intent
         ArticlesItem articlesItem = getIntent().getParcelableExtra(EXTRA_ARTICLE_ITEM);
 
-        //TODO (33) Ganti title pada action bar menggunakan title dari articles item dan ganti subtitle dengan url articles item
         getSupportActionBar().setTitle(articlesItem.getTitle());
         getSupportActionBar().setSubtitle(articlesItem.getUrl());
 

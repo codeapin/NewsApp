@@ -4,9 +4,6 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
-// TODO: (1) Buat akun di newsapi.org dan copy file json news yang didapat
-// TODO: (2) Install plugin RoboPOJO Generator dan restart android studio
-// TODO: (3) Generate Gson dari json yang di dapat dari newsapi.org (centang GSON, getter, setter)
 public class ApiResponse {
 
     @SerializedName("totalResults")

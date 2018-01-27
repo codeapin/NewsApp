@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-// TODO (27) Install plugin ParcelAble dan generate parceable menggunakan "alt + insert" > "Parcelable"
 public class ArticlesItem implements Parcelable {
 
     @SerializedName("publishedAt")

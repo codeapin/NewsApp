@@ -23,9 +23,7 @@ import butterknife.ButterKnife;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    // TODO: (4) Ganti dataset menggunakan List<ArticlesItem>
     private List<ArticlesItem> dataSet = new ArrayList<>();
-    // TODO: (23) Buat field variable untuk ReadMoreListener
     private ReadMoreListener readMoreListener;
 
     @Override
@@ -45,7 +43,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.tvAuthor.setText(articlesItem.getAuthor());
         holder.tvDescription.setText(articlesItem.getDescription());
 
-        // TODO (25) Panggil method ReadMoreListener.onReadMore saat btnReadMore diklik
         holder.btnReadMore.setOnClickListener(v -> {
             if(readMoreListener != null){
                 readMoreListener.onReadMore(articlesItem);
@@ -53,7 +50,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         });
 
 
-        // TODO: (6) parameter load menggunakan articlesItem.getUrlToImage()
         Glide.with(holder.itemView.getContext())
                 .load(articlesItem.getUrlToImage())
                 .into(holder.ivCover);
@@ -74,14 +70,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    // TODO: (24) Buat setter untuk field ReadMoreListener
     public void setReadMoreListener(ReadMoreListener readMoreListener){
         this.readMoreListener = readMoreListener;
     }
 
-    // TODO: (21) Definisikan interface ReadMoreListener
     public interface ReadMoreListener{
-        // TODO: (22) Definisikan method onReadMore dengan parameter ArticlesItem
         void onReadMore(ArticlesItem articlesItem);
     }
 
