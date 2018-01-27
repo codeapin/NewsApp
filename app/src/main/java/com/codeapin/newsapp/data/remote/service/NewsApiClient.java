@@ -14,10 +14,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+// TODO: (8) Buat sebuah NewsApiClient untuk menampung service retrofit  
 public class NewsApiClient {
 
+    // TODO: (9) Deklarasikan static field NewsApiService 
     private static NewsApiService INSTANCE;
 
+    // TODO: (10) Buat method untuk membuat api service dari interface NewsApiService menggunakan retrofit builder 
     public static NewsApiService getNewsApiService() {
         if (INSTANCE == null) {
             Retrofit retrofit = new Retrofit.Builder()
@@ -31,9 +34,12 @@ public class NewsApiClient {
         return INSTANCE;
     }
 
+    // TODO: (11) Definisikan sebuah method untuk membuat instance OkHttpClient baru 
     public static OkHttpClient getOkHttpClient(){
         return new OkHttpClient.Builder()
+                // TODO: (12) Tambahkan logging interceptor dan set levelnya hingga ke BODY
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                // TODO: (13) Tambahkan interceptor untuk menambahkan apiKey untuk setiap request
                 .addNetworkInterceptor(chain -> {
                     Request originalRequest = chain.request();
                     HttpUrl originalUrl = originalRequest.url();

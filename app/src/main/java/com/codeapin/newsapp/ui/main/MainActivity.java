@@ -39,13 +39,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // TODO: (14) Tambahkan method setupView dan pindahkan semua kode yang berhubungan dengan view kedalamnya
         setupView();
+        // TODO: (15) Tambahkan method setupList dan pindahkan semua kode yang recyclerView dan adapter kedalamnya
         setupList();
     }
 
     private void setupList() {
         adapter = new NewsAdapter();
+
+        // TODO: (26) Implementasikan ReadMoreListener yang ada pada adapter
         adapter.setReadMoreListener(articlesItem -> {
+            // TODO: (30) Panggil method start untuk menuju ke DetailActivity
             DetailActivity.start(MainActivity.this, articlesItem);
         });
 
@@ -55,16 +60,20 @@ public class MainActivity extends AppCompatActivity {
         rvNews.setLayoutManager(linearLayoutManager);
         rvNews.setAdapter(adapter);
 
+        //TODO (16) Buat sebuah field callable variabel untuk menampung hasil request NewsList melalui NewsApisService
         call = NewsApiClient.getNewsApiService()
                 .getTopHeadlinesNews("us");
+        // TODO: (17)  Eksekusi callable menggunakan method "enqueue"
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                // TODO: (18)  Set data pada adapter saat response berhasil
                 adapter.setData(response.body().getArticles());
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
+                // TODO: (19)  Log error saat request gagal
                 Log.d(TAG, "onFailure: ", t);
             }
         });
@@ -75,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // TODO: (20) Jangan gunakan dummy data karena sudah menggunakan apiservice, hapus semua kode yang mereferensi ke method ini
+    @Deprecated
     public List<NewsItem> getDummyData(){
         List<NewsItem> result = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

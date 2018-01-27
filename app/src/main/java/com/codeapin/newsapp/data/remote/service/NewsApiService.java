@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+// TODO: (7) Definisikan url newsapi.org menjadi sebuah interface untuk retrofit
 public interface NewsApiService {
 
     @GET("top-headlines")
