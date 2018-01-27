@@ -10,6 +10,5 @@ import retrofit2.http.Query;
 public interface NewsApiService {
 
     @GET("top-headlines")
-    Call<ApiResponse> getTopHeadlinesNews(@Query("country") String country,
-                                          @Query("apiKey") String apiKey);
+    Call<ApiResponse> getTopHeadlinesNews(@Query("country") String country);
 }

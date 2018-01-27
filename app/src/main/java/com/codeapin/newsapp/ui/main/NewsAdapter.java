@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.codeapin.newsapp.R;
 import com.codeapin.newsapp.data.remote.model.ArticlesItem;
 import com.codeapin.newsapp.data.remote.model.ArticlesItem;
+import com.codeapin.newsapp.data.remote.model.NewsItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private List<ArticlesItem> dataSet = new ArrayList<>();
+    private ReadMoreListener readMoreListener;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,6 +42,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.tvTitle.setText(newsItem.getTitle());
         holder.tvAuthor.setText(newsItem.getAuthor());
         holder.tvDescription.setText(newsItem.getDescription());
+
+        holder.btnReadMore.setOnClickListener(v -> {
+            if(readMoreListener != null){
+                readMoreListener.onReadMore(newsItem);
+            }
+        });
+
+
         Glide.with(holder.itemView.getContext())
                 .load(newsItem.getUrlToImage())
                 .into(holder.ivCover);
@@ -58,6 +68,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void clearData(){
         this.dataSet.clear();
         notifyDataSetChanged();
+    }
+
+    public void setReadMoreListener(ReadMoreListener readMoreListener){
+        this.readMoreListener = readMoreListener;
+    }
+
+    public interface ReadMoreListener{
+        void onReadMore(ArticlesItem articlesItem);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

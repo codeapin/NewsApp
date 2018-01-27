@@ -1,10 +1,12 @@
 package com.codeapin.newsapp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codeapin.newsapp.R;
@@ -12,6 +14,7 @@ import com.codeapin.newsapp.data.remote.model.ApiResponse;
 import com.codeapin.newsapp.data.remote.model.NewsItem;
 import com.codeapin.newsapp.data.remote.service.NewsApiClient;
 import com.codeapin.newsapp.data.remote.service.NewsApiService;
+import com.codeapin.newsapp.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupList() {
         adapter = new NewsAdapter();
+        adapter.setReadMoreListener(articlesItem -> {
+            DetailActivity.start(MainActivity.this, articlesItem);
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
 
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         rvNews.setAdapter(adapter);
 
         call = NewsApiClient.getNewsApiService()
-                .getTopHeadlinesNews("us", "cd3f89ea78aa441d9aafb6f82a313245");
+                .getTopHeadlinesNews("us");
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
