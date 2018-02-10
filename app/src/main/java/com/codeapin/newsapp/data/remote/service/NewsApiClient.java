@@ -1,6 +1,7 @@
 package com.codeapin.newsapp.data.remote.service;
 
 
+import com.codeapin.newsapp.BuildConfig;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class NewsApiClient {
                     Request originalRequest = chain.request();
                     HttpUrl originalUrl = originalRequest.url();
                     HttpUrl newUrl = originalUrl.newBuilder()
-                            .addQueryParameter("apiKey", "cd3f89ea78aa441d9aafb6f82a313245")
+                            .addQueryParameter("apiKey", BuildConfig.ApiKey)
                             .build();
                     Request newRequest = originalRequest.newBuilder()
                             .url(newUrl)

@@ -2,6 +2,7 @@ package com.codeapin.newsapp.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rv_news)
     RecyclerView rvNews;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private NewsAdapter adapter;
     private Call<ApiResponse> call;
@@ -41,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupView();
         setupList();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(call != null){
+            call.cancel();
+        }
     }
 
     private void setupList() {
@@ -56,24 +67,31 @@ public class MainActivity extends AppCompatActivity {
         rvNews.setLayoutManager(linearLayoutManager);
         rvNews.setAdapter(adapter);
 
+        loadData();
+    }
+
+    private void setupView() {
+        ButterKnife.bind(this);
+        swipeRefreshLayout.setOnRefreshListener(() -> loadData());
+    }
+
+    void loadData(){
+        swipeRefreshLayout.setRefreshing(true);
         call = NewsApiClient.getNewsApiService()
                 .getTopHeadlinesNews("us");
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 adapter.setData(response.body().getArticles());
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
                 Log.d(TAG, "onFailure: ", t);
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
-    }
-
-    private void setupView() {
-        ButterKnife.bind(this);
-
     }
 
     @Deprecated

@@ -1,5 +1,6 @@
 package com.codeapin.newsapp.data.remote.model;
 
+import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
