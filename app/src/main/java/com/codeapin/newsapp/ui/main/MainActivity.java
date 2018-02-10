@@ -17,7 +17,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO: (21) Deklarasikan semua view pada layout activity_main
     @BindView(R.id.rv_news)
     RecyclerView rvNews;
 
@@ -28,23 +27,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO (22) Bind semua view menggunakan ButterKnife
         ButterKnife.bind(this);
 
-        //TODO (24) Buat field NewsAdapter dan isi dataset dengan dummy data
         adapter = new NewsAdapter();
         adapter.setData(getDummyData());
 
-        //TODO (25) Buat sebuah linear layout manager dengan orientation VERTICAL
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
 
-        //TODO (26) Gunakan layoutmanager dan adapter yang telah dibuat pada RecyclerView
         rvNews.setLayoutManager(linearLayoutManager);
         rvNews.setAdapter(adapter);
     }
 
-    //TODO (23) Buat method untuk menghasilkan data dummy berupa List<NewsItem>
     public List<NewsItem> getDummyData(){
         List<NewsItem> result = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
